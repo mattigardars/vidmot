@@ -18,7 +18,7 @@ public class ViewSwitcher {
 
     private static Scene scene;
 
-    public static void setScene(Scene scene) {
+    public static void setScene(Scene scene ) {
         ViewSwitcher.scene = scene;
     }
 
@@ -40,6 +40,7 @@ public class ViewSwitcher {
                 root = FXMLLoader.load(
                         ViewSwitcher.class.getResource(view.getFileName())
                 );
+
 
                 cache.put(view, root);
             }

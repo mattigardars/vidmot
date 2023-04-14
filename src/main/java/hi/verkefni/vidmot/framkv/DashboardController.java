@@ -48,6 +48,24 @@ public class DashboardController {
     private LocalDate today;
     private TaskList taskList = new TaskList();
 
+    //public DashboardController(TaskList taskList) {
+     //this.taskList = taskList;
+    //}
+
+
+    private void updateTaskList() {
+        fxFlow.getChildren().clear();
+        for (Task task : taskList.getTaskList()) {
+            TaskListItem taskListItem = new TaskListItem(task);
+            fxFlow.getChildren().add(taskListItem);
+        }
+    }
+
+    public void addTask(Task task) {
+        taskList.addTask(task);
+        updateTaskList();
+    }
+
     private void updateProjectTasks(String projectName) {
         fxProject.getChildren().clear();
         for (Task task : taskList.getTaskList()) {
@@ -58,8 +76,13 @@ public class DashboardController {
         }
     }
 
+
     public void initialize() {
-        taskList.addRandomTasks();
+        ObservableList<Task> tasks = taskList.getTaskList();
+
+
+
+        //taskList.addRandomTasks();
         today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         String formattedDate = today.format(formatter);
@@ -81,7 +104,9 @@ public class DashboardController {
             firstProjectButton.setFocusTraversable(true);
         }
         fxUsernameLabel.setText(user.getName()); // use the User object to set the text of the label
+        updateTaskList();
     }
+
 
 
     private void updateProjectButtons() {

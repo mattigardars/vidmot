@@ -10,7 +10,9 @@ package hi.verkefni.vidmot.framkv;
 public enum View {
     LOGIN("login.fxml"),
     SIGNUP("signUp.fxml"),
-    DASHBOARD("dashboard.fxml");
+    DASHBOARD("dashboard.fxml"),
+
+    CREATETASK("createTask.fxml");
     private String fileName;
 
     View(String fileName) {
