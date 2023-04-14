@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" style="-fx-background-color: #001A23;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hi.verkefni.vidmot.framkv.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" style="-fx-background-color: #001A23;" stylesheets="@../../../../hi.verkefni.stylesheet/framkv-styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hi.verkefni.vidmot.framkv.LoginController">
     <children>
         <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Framkvæmó" wrappingWidth="146.21630859375">
             <font>
@@ -24,8 +24,8 @@
                 <TextField fx:id="fxUserName" layoutX="32.0" layoutY="104.0" prefHeight="60.0" prefWidth="419.0" />
                 <PasswordField fx:id="fxPassword" layoutX="34.0" layoutY="205.0" prefHeight="60.0" prefWidth="419.0" />
                 <Text layoutX="38.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ekki notandi?" />
-                <Button layoutX="155.0" layoutY="299.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="54.0" prefWidth="174.0" text="Innskrá" />
-                <Button layoutX="123.0" layoutY="401.0" mnemonicParsing="false" onAction="#onSignUp" text="Nýskráning" />
+                <Button layoutX="155.0" layoutY="299.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="54.0" prefWidth="174.0" styleClass="basic-button" stylesheets="@../../../../hi.verkefni.stylesheet/framkv-styles.css" text="Innskrá" />
+                <Button fx:id="fxSignUpButton" layoutX="113.0" layoutY="405.0" mnemonicParsing="false" onAction="#onSignUp" styleClass="SignUpButton" text="Nýskráning" />
                 <Text layoutX="36.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notenda nafn" />
                 <Text layoutX="36.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lykilorð" />
             </children></Pane>

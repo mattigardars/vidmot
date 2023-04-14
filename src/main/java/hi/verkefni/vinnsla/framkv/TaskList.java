@@ -30,7 +30,7 @@ public class TaskList {
         String[] descriptions = {"asdfa sdfasdf", "asdfasdf the hasdfasfouse", "Finishasfdasdf project", "Go for asdfaa run", "Call mom"};
         String[] projects = {"Home", "Work", "Personal", "School", "Hobby"};
         int[] priorities = {1, 2, 3, 4, 5};
-        LocalDate[] deadlines = {LocalDate.now().plusDays(1), LocalDate.now().plusDays(3), LocalDate.now().plusDays(5)};
+        LocalDate[] deadlines = {LocalDate.now().plusDays(0), LocalDate.now().plusDays(3), LocalDate.now().plusDays(5)};
 
         for (int i = 0; i < 10; i++) {
             String title = names[(int) (Math.random() * names.length)];

@@ -11,11 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-
-
-
-
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,14 +23,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 public class DashboardController {
-    @FXML
-    private ListView<Task> fxToday;
 
     @FXML
     private FlowPane fxFlow;
 
     @FXML
     private FlowPane fxProject;
+
+    @FXML
+    private HBox projectButtonsContainer;
+
+    @FXML
+    private Label fxTodayLabel;
+
+    private LocalDate today;
+    private TaskList taskList = new TaskList();
 
     private void updateProjectTasks(String projectName) {
         fxProject.getChildren().clear();
@@ -45,20 +49,30 @@ public class DashboardController {
         }
     }
 
-    private TaskList taskList = new TaskList();
-
     public void initialize() {
         taskList.addRandomTasks();
+        today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+        String formattedDate = today.format(formatter);
+        System.out.println(today);
+        fxTodayLabel.setText(formattedDate);
 
         // Add a label for each task to the FlowPane
         for (Task task : taskList.getTaskList()) {
-            TaskListItem taskListItem = new TaskListItem(task);
-            fxFlow.getChildren().add(taskListItem);
+            System.out.println(task.getDeadline());
+            if (task.getDeadline().equals(today)) {
+                TaskListItem taskListItem = new TaskListItem(task);
+                fxFlow.getChildren().add(taskListItem);
+            }
         }
         updateProjectButtons();
+        if (projectButtonsContainer.getChildren().size() > 0) {
+            Button firstProjectButton = (Button) projectButtonsContainer.getChildren().get(0);
+            firstProjectButton.fire();
+            firstProjectButton.setFocusTraversable(true);
+        }
     }
-    @FXML
-    private HBox projectButtonsContainer;
+
 
     private void updateProjectButtons() {
         projectButtonsContainer.getChildren().clear();
@@ -85,16 +99,6 @@ public class DashboardController {
         Button projectButton = (Button) event.getSource();
         String projectName = projectButton.getText();
         updateProjectTasks(projectName);
-    }
-
-
-
-    @FXML
-    private void handleDeleteTask(MouseEvent event) {
-        Task selectedTask = fxToday.getSelectionModel().getSelectedItem();
-        if (selectedTask != null) {
-            taskList.removeTask(selectedTask);
-        }
     }
 
     private void editTask(Task task) {
