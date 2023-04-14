@@ -1,0 +1,68 @@
+#fxAddButton {
+   -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+#fxAddButton:pressed {
+  -fx-opacity: 0.3;
+}
+
+#fxAddButton1 {
+   -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+#fxAddButton1:pressed {
+  -fx-opacity: 0.3;
+}
+
+.iconButtons {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+}
+
+.iconButtons:pressed {
+  -fx-opacity: 0.3;
+}
+
+.checkbox {
+    -fx-background-color: #9BC995;
+    -fx-border-color: #D9EAD7;
+    -fx-border-width: 2px;
+}
+
+.checkbox .box {
+    -fx-background-color: transparent;
+}
+
+.checkbox:selected .box {
+    -fx-background-color: #9BC995;
+}
+
+.checkbox .check-mark {
+    -fx-background-color: #D9EAD7;
+}
+
+.checkbox-box:selected .check-mark {
+    -fx-background-color: #9BC995;
+}
+
+.button.project {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #5171A5;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;s
+}
+
+.button.project:pressed, .button.project:focused {
+    -fx-background-color: rgba(81, 113, 165, 0.3);
+}
