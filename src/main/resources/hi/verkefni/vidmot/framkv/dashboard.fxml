@@ -18,12 +18,12 @@
                 <Font size="26.0" />
             </font>
         </Text>
-      <Label alignment="CENTER_RIGHT" layoutX="1110.0" layoutY="25.0" prefHeight="31.0" prefWidth="119.0" text="Label">
+      <Label fx:id="fxUsernameLabel" alignment="CENTER_RIGHT" layoutX="1057.0" layoutY="25.0" prefHeight="31.0" prefWidth="172.0" text="Label">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <Button layoutX="1267.0" layoutY="19.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" styleClass="basic-button" text="Útskrá">
+      <Button layoutX="1267.0" layoutY="19.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="42.0" prefWidth="105.0" styleClass="basic-button" text="Útskrá">
          <font>
             <Font size="23.0" />
          </font>
@@ -54,12 +54,12 @@
       </Text>
       <FlowPane fx:id="fxProject" layoutX="46.0" layoutY="601.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="1310.0" />
       <HBox fx:id="projectButtonsContainer" layoutX="45.0" layoutY="558.0" prefHeight="35.0" prefWidth="1310.0" />
-      <Label layoutX="646.0" layoutY="861.0" text="0">
+      <Label layoutX="784.0" layoutY="861.0" text="0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Text fill="#001a23" layoutX="525.0" layoutY="879.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verkefni kláruð">
+      <Text fill="#001a23" layoutX="623.0" layoutY="879.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verkefni kláruð í dag">
          <font>
             <Font size="18.0" />
          </font>

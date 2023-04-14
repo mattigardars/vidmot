@@ -21,9 +21,18 @@ import hi.verkefni.vinnsla.framkv.TaskList;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import hi.verkefni.vinnsla.framkv.User;
 
 public class DashboardController {
 
+    @FXML
+    private Label fxUsernameLabel;
+
+    private static User user; // make the User object static so that it can be accessed from anywhere in the DashboardController class
+
+    public static void setUser(User user) { // add a method to set the User object
+        DashboardController.user = user;
+    }
     @FXML
     private FlowPane fxFlow;
 
@@ -71,6 +80,7 @@ public class DashboardController {
             firstProjectButton.fire();
             firstProjectButton.setFocusTraversable(true);
         }
+        fxUsernameLabel.setText(user.getName()); // use the User object to set the text of the label
     }
 
 
@@ -99,6 +109,11 @@ public class DashboardController {
         Button projectButton = (Button) event.getSource();
         String projectName = projectButton.getText();
         updateProjectTasks(projectName);
+    }
+    @FXML
+    private void onLogout(ActionEvent event) {
+        setUser(null);
+        ViewSwitcher.switchTo(View.LOGIN);
     }
 
     private void editTask(Task task) {

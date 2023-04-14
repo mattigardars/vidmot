@@ -21,10 +21,10 @@
                         <Font size="20.0" />
                     </font>
                 </Text>
-                <TextField fx:id="fxUserName" layoutX="32.0" layoutY="104.0" prefHeight="60.0" prefWidth="419.0" />
+                <TextField fx:id="fxUsername" layoutX="32.0" layoutY="104.0" prefHeight="60.0" prefWidth="419.0" />
                 <PasswordField fx:id="fxPassword" layoutX="34.0" layoutY="207.0" prefHeight="60.0" prefWidth="419.0" />
             <PasswordField fx:id="fxPasswordCheck" layoutX="34.0" layoutY="314.0" prefHeight="60.0" prefWidth="419.0" />
-                <Button layoutX="154.0" layoutY="421.0" mnemonicParsing="false" onAction="#onSignUp" prefHeight="54.0" prefWidth="174.0" text="Nýskrá" />
+                <Button fx:id="fxLoginButton" layoutX="154.0" layoutY="421.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="54.0" prefWidth="174.0" styleClass="basic-button" stylesheets="@../../../../hi.verkefni.stylesheet/framkv-styles.css" text="Nýskrá" />
                 <Text layoutX="36.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notendanafn" />
                 <Text layoutX="36.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lykilorð" />
             <Text layoutX="37.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staðfesta lykilorð" />
