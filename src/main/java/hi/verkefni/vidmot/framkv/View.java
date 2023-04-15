@@ -13,8 +13,9 @@ public enum View {
     LOGIN("login.fxml"),
     SIGNUP("signUp.fxml"),
     DASHBOARD("dashboard.fxml"),
+    CREATETASK("createTask.fxml"),
+    EDITTASK("editTask.fxml");
 
-    CREATETASK("createTask.fxml");
     private String fileName;
 
     View(String fileName) {

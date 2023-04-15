@@ -22,10 +22,11 @@ public class DataModel {
         taskList.updateTask(task); // Add this line to update the task in the TaskList
     }
 
-    public void editTask(Task task, String title, String description, String project, LocalDate deadline) {
-        task.setTitle(title);
-        task.setProject(project);
-//        task.setDeadline(deadline);
+    public void editTask(Task task) {
+        int index = taskList.getTaskList().indexOf(task);
+        if (index >= 0) {
+            taskList.getTaskList().set(index, task);
+        }
     }
 
 }

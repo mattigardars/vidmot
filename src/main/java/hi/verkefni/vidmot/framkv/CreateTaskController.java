@@ -93,8 +93,6 @@ public class CreateTaskController {
         taskList.addTask(newTask);
 
 
-        //ObservableList<Task> tasks = taskList.getTaskList();
-
         // clear the input fields
         fxCreateTaskField.clear();
         fxDate.setValue(null);

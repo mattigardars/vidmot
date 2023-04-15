@@ -53,7 +53,7 @@ public class TaskListItem extends HBox {
         editImage.setFitWidth(16); // set the width of the image to 16 pixels
         editImage.setFitHeight(16); // set the height of the image to 16 pixels
         editButton.setGraphic(editImage);
-        // editButton.setOnAction(event -> editTask(task));
+        //editButton.setOnAction(event -> {
 
         deleteButton = new Button();
         ImageView deleteImage = new ImageView(new Image(getClass().getResourceAsStream("/hi.verkefni.assets/delete.png")));
@@ -75,7 +75,8 @@ public class TaskListItem extends HBox {
             refresh();
         });
         editButton.setOnAction(event -> {
-            // You can open the EditTaskController and pass the task and dataModel to it.
+            EditTaskController editTaskController = new EditTaskController(dataModel, this, task);
+            ViewSwitcher.switchTo(View.EDITTASK);
         });
         deleteButton.setOnAction(event -> dataModel.deleteTask(task));
 
@@ -85,9 +86,19 @@ public class TaskListItem extends HBox {
     public Task getTask() {
         return task;
     }
+    public void updateTask(Task task) {
+        this.task = task;
+        taskLabel.setText(task.getTitle());
+    }
 
     public void refresh() {
         taskLabel.setText(task.getTitle());
+    }
+
+    private EditTaskController editTaskController;
+
+    public void setEditTaskController(EditTaskController editTaskController) {
+        this.editTaskController = editTaskController;
     }
 
 }

@@ -35,7 +35,6 @@ public class DashboardController {
         DashboardController.dataModel = dataModel;
     }
 
-
     @FXML
     private FlowPane fxFlow;
 
@@ -63,12 +62,13 @@ public class DashboardController {
         for (Task task : dataModel.getTaskList().getTaskList()) { // Use dataModel.getTaskList() instead of taskList
             if (task.getProject().equals(projectName)) {
                 TaskListItem taskListItem = new TaskListItem(task, dataModel);
+                EditTaskController editTaskController = new EditTaskController(dataModel, taskListItem, task);
+                taskListItem.setEditTaskController(editTaskController);
                 fxProject.getChildren().add(taskListItem);
                 System.out.println("updateProjectTasks() called with projectName: " + projectName);
             }
         }
     }
-
 
     private void updateTaskList() {
         System.out.println("UpdatetaskList");
@@ -82,20 +82,12 @@ public class DashboardController {
         }
     }
 
-
     public void refreshTaskList() {
         updateTaskList();
         updateProjectButtons();
     }
 
-
-
-
-
     public void initialize() {
-        //ObservableList<Task> tasks = taskList.getTaskList();
-
-        //taskList.addRandomTasks();
         today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         String formattedDate = today.format(formatter);
@@ -136,24 +128,11 @@ public class DashboardController {
         ViewSwitcher.switchTo(View.LOGIN);
     }
 
-    private void editTask(Task task) {
-
-    }
-
-    private void deleteTask(Task task) {
-
-    }
-
-    private void snoozeTask(Task task) {
-
-    }
-
 
     public void createTaskButton(ActionEvent actionEvent) {
         CreateTaskController.setTaskList(taskList);
         CreateTaskController.setDataModel(dataModel);
         ViewSwitcher.switchTo(View.CREATETASK);
     }
-
 
 }
