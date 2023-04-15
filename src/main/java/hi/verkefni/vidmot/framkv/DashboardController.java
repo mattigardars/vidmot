@@ -58,6 +58,7 @@ public class DashboardController {
         for (Task task : taskList.getTaskList()) {
             TaskListItem taskListItem = new TaskListItem(task);
             fxFlow.getChildren().add(taskListItem);
+            System.out.println("Title: " + task.getTitle() + ", Project: " + task.getProject() + ", Deadline: " + task.getDeadline() + ", Priority: " + task.getPriority());
         }
     }
 
@@ -72,15 +73,14 @@ public class DashboardController {
             if (task.getProject().equals(projectName)) {
                 TaskListItem taskListItem = new TaskListItem(task);
                 fxProject.getChildren().add(taskListItem);
+                System.out.println("updateProjectTasks() called with projectName: " + projectName);
             }
         }
     }
 
 
     public void initialize() {
-        ObservableList<Task> tasks = taskList.getTaskList();
-
-
+        //ObservableList<Task> tasks = taskList.getTaskList();
 
         //taskList.addRandomTasks();
         today = LocalDate.now();
@@ -106,8 +106,6 @@ public class DashboardController {
         fxUsernameLabel.setText(user.getName()); // use the User object to set the text of the label
         updateTaskList();
     }
-
-
 
     private void updateProjectButtons() {
         projectButtonsContainer.getChildren().clear();
@@ -154,4 +152,7 @@ public class DashboardController {
     }
 
 
+    public void createTaskButton(ActionEvent actionEvent) {
+        ViewSwitcher.switchTo(View.CREATETASK);
+    }
 }

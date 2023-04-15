@@ -14,6 +14,10 @@ public class Task {
         this.deadline = deadline;
         this.priority = priority;
     }
+    @Override
+    public String toString() {
+        return "Title: " + title + ", Project: " + project + ", Deadline: " + deadline + ", Priority: " + priority;
+    }
 
     public String getTitle() {
         return title;

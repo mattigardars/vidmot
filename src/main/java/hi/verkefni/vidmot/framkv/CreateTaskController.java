@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.time.LocalDate;
 
@@ -25,6 +22,8 @@ public class CreateTaskController {
     @FXML
     private TextField fxProjectField;
     private TaskList taskList;
+    private Task task;
+
 
     public CreateTaskController() {
         // This is the no-argument constructor required by JavaFX
@@ -37,6 +36,7 @@ public class CreateTaskController {
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
     }
+
 
 
 
@@ -72,18 +72,20 @@ public class CreateTaskController {
 
     @FXML
     void CreateTaskButton(ActionEvent event) {
-        String taskName = fxCreateTaskField.getText();
+
+        String title = fxCreateTaskField.getText();
         String project = fxProjectField.getText();
-        LocalDate taskDate = fxDate.getValue();
+        LocalDate deadline = fxDate.getValue();
         int priority = Integer.parseInt(fxPriorityField.getText());
 
         // create a new task with the given name and date
-        Task newTask = new Task(taskName,project, taskDate, priority);
+        Task newTask = new Task(title,project, deadline, priority);
 
         // add the new task to the task list
         taskList.addTask(newTask);
 
-        ObservableList<Task> tasks = taskList.getTaskList();
+
+        //ObservableList<Task> tasks = taskList.getTaskList();
 
         // clear the input fields
         fxCreateTaskField.clear();
@@ -91,11 +93,17 @@ public class CreateTaskController {
         fxPriorityField.clear();
         fxProjectField.clear();
 
-        //DashboardController dashboardController = new DashboardController(taskList);
         // disable the button again
         CreateTaskButton.setDisable(true);
+        // create a new label for the task and set its text
+        //Label taskLabel = new Label("Title: " + newTask.getTitle() + ", Project: " + newTask.getProject() + ", Deadline: " + newTask.getDeadline() + ", Priority: " + newTask.getPriority());
+
         System.out.println(taskList.getTaskList());
+        System.out.println("Title: " + newTask.getTitle() + ", Project: " + newTask.getProject() + ", Deadline: " + newTask.getDeadline() + ", Priority: " + newTask.getPriority());
+
+        ViewSwitcher.switchTo((View.DASHBOARD));
     }
+
 
     @FXML
     void backToDasboardButton(ActionEvent event) {
