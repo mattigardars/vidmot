@@ -15,6 +15,7 @@ public class FramkvApplication extends Application {
         DataModel dataModel = new DataModel();
         DashboardController.setDataModel(dataModel);
         CreateTaskController.setDataModel(dataModel);
+        EditTaskController.setDataModel(dataModel);
 
         var scene = new Scene(new Pane());
 

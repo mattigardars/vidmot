@@ -5,6 +5,8 @@ import java.time.LocalDate;
 public class DataModel {
     private TaskList taskList;
 
+    private Task selectedTask;
+
     public DataModel() {
         this.taskList = new TaskList();
     }
@@ -26,6 +28,22 @@ public class DataModel {
         int index = taskList.getTaskList().indexOf(task);
         if (index >= 0) {
             taskList.getTaskList().set(index, task);
+        }
+    }
+
+    public Task getSelectedTask() {
+        return selectedTask;
+    }
+
+    public void setSelectedTask(Task selectedTask) {
+        this.selectedTask = selectedTask;
+    }
+
+    public void updateTask(Task taskToUpdate, Task updatedTask) {
+        int index = taskList.getTaskList().indexOf(taskToUpdate);
+        if (index != -1) {
+            taskList.getTaskList().set(index, updatedTask);
+            // Notify observers of the change
         }
     }
 

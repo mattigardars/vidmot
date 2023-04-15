@@ -62,8 +62,6 @@ public class DashboardController {
         for (Task task : dataModel.getTaskList().getTaskList()) { // Use dataModel.getTaskList() instead of taskList
             if (task.getProject().equals(projectName)) {
                 TaskListItem taskListItem = new TaskListItem(task, dataModel);
-                EditTaskController editTaskController = new EditTaskController(dataModel, taskListItem, task);
-                taskListItem.setEditTaskController(editTaskController);
                 fxProject.getChildren().add(taskListItem);
                 System.out.println("updateProjectTasks() called with projectName: " + projectName);
             }

@@ -10,39 +10,43 @@ import javafx.scene.control.TextField;
 import java.time.LocalDate;
 
 public class EditTaskController {
-    private final DataModel dataModel;
-    private final TaskListItem taskListItem;
-    private final Task task;
+    private static DataModel dataModel;
 
-    @FXML private TextField fxTitleField;
-    @FXML private DatePicker fxDatePicker;
+    @FXML private TextField fxCreateTaskField;
+    @FXML private DatePicker fxDate;
     @FXML private TextField fxProjectField;
     @FXML private TextField fxPriorityField;
     @FXML private Button fxSaveButton;
 
-    public EditTaskController(DataModel dataModel, TaskListItem taskListItem, Task task) {
-        this.dataModel = dataModel;
-        this.taskListItem = taskListItem;
-        this.task = task;
+    public static void setDataModel(DataModel dataModel) {
+        EditTaskController.dataModel = dataModel;
+    }
+    public EditTaskController() {
     }
 
     @FXML
     public void initialize() {
-        fxTitleField.setText(task.getTitle());
-        fxDatePicker.setValue(task.getDeadline());
-        fxProjectField.setText(task.getProject());
-        fxPriorityField.setText(Integer.toString(task.getPriority()));
+        if (dataModel != null && dataModel.getSelectedTask() != null) {
+            Task task = dataModel.getSelectedTask();
+            fxCreateTaskField.setText(task.getTitle());
+            fxDate.setValue(task.getDeadline());
+            fxProjectField.setText(task.getProject());
+            fxPriorityField.setText(Integer.toString(task.getPriority()));
+        }
     }
 
     @FXML
     public void handleSaveButtonAction() {
-        String title = fxTitleField.getText();
-        String project = fxProjectField.getText();
-        LocalDate deadline = fxDatePicker.getValue();
-        int priority = Integer.parseInt(fxPriorityField.getText());
+        if (dataModel != null && dataModel.getSelectedTask() != null) {
+            String title = fxCreateTaskField.getText();
+            String project = fxProjectField.getText();
+            LocalDate deadline = fxDate.getValue();
+            int priority = Integer.parseInt(fxPriorityField.getText());
 
-        Task updatedTask = new Task(title,project, deadline, priority);
-        taskListItem.updateTask(updatedTask);
-        ViewSwitcher.switchTo(View.DASHBOARD);
+            Task updatedTask = new Task(title, project, deadline, priority);
+            dataModel.updateTask(dataModel.getSelectedTask(), updatedTask);
+            ViewSwitcher.switchTo(View.DASHBOARD);
+        }
     }
+
 }

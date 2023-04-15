@@ -75,7 +75,8 @@ public class TaskListItem extends HBox {
             refresh();
         });
         editButton.setOnAction(event -> {
-            EditTaskController editTaskController = new EditTaskController(dataModel, this, task);
+            System.out.println("here");
+            dataModel.setSelectedTask(task);
             ViewSwitcher.switchTo(View.EDITTASK);
         });
         deleteButton.setOnAction(event -> dataModel.deleteTask(task));
