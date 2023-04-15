@@ -54,11 +54,12 @@ public class DashboardController {
 
 
     private void updateTaskList() {
-        fxFlow.getChildren().clear();
+        //fxFlow.getChildren().clear();
         for (Task task : taskList.getTaskList()) {
             TaskListItem taskListItem = new TaskListItem(task);
             fxFlow.getChildren().add(taskListItem);
             System.out.println("Title: " + task.getTitle() + ", Project: " + task.getProject() + ", Deadline: " + task.getDeadline() + ", Priority: " + task.getPriority());
+            System.out.println(fxFlow);
         }
     }
 

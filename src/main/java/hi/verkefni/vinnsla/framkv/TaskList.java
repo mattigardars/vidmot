@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
+
 public class TaskList {
 
     private ObservableList<Task> taskList;
