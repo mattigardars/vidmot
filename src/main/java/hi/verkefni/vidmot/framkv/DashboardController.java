@@ -1,15 +1,10 @@
 package hi.verkefni.vidmot.framkv;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import hi.verkefni.vinnsla.framkv.DataModel;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +28,14 @@ public class DashboardController {
     public static void setUser(User user) { // add a method to set the User object
         DashboardController.user = user;
     }
+
+    private static DataModel dataModel;
+
+    public static void setDataModel(DataModel dataModel) {
+        DashboardController.dataModel = dataModel;
+    }
+
+
     @FXML
     private FlowPane fxFlow;
 
@@ -46,38 +49,47 @@ public class DashboardController {
     private Label fxTodayLabel;
 
     private LocalDate today;
+
     private TaskList taskList = new TaskList();
 
-    //public DashboardController(TaskList taskList) {
-     //this.taskList = taskList;
-    //}
+    private String lastSelectedProject;
 
-
-    private void updateTaskList() {
-        //fxFlow.getChildren().clear();
-        for (Task task : taskList.getTaskList()) {
-            TaskListItem taskListItem = new TaskListItem(task);
-            fxFlow.getChildren().add(taskListItem);
-            System.out.println("Title: " + task.getTitle() + ", Project: " + task.getProject() + ", Deadline: " + task.getDeadline() + ", Priority: " + task.getPriority());
-            System.out.println(fxFlow);
-        }
-    }
-
-    public void addTask(Task task) {
-        taskList.addTask(task);
-        updateTaskList();
+    public static void setTaskList(TaskList taskList) {
     }
 
     private void updateProjectTasks(String projectName) {
+        lastSelectedProject = projectName;
         fxProject.getChildren().clear();
-        for (Task task : taskList.getTaskList()) {
+        for (Task task : dataModel.getTaskList().getTaskList()) { // Use dataModel.getTaskList() instead of taskList
             if (task.getProject().equals(projectName)) {
-                TaskListItem taskListItem = new TaskListItem(task);
+                TaskListItem taskListItem = new TaskListItem(task, dataModel);
                 fxProject.getChildren().add(taskListItem);
                 System.out.println("updateProjectTasks() called with projectName: " + projectName);
             }
         }
     }
+
+
+    private void updateTaskList() {
+        System.out.println("UpdatetaskList");
+        fxFlow.getChildren().clear();
+        for (Task task : dataModel.getTaskList().getTaskList()) {
+            if (task.getDeadline().isEqual(today)) { // Add this line to filter tasks by their deadline
+                System.out.println(task.getDeadline());
+                TaskListItem taskListItem = new TaskListItem(task, dataModel);
+                fxFlow.getChildren().add(taskListItem);
+            }
+        }
+    }
+
+
+    public void refreshTaskList() {
+        updateTaskList();
+        updateProjectButtons();
+    }
+
+
+
 
 
     public void initialize() {
@@ -90,29 +102,20 @@ public class DashboardController {
         System.out.println(today);
         fxTodayLabel.setText(formattedDate);
 
-        // Add a label for each task to the FlowPane
-        for (Task task : taskList.getTaskList()) {
-            System.out.println(task.getDeadline());
-            if (task.getDeadline().equals(today)) {
-                TaskListItem taskListItem = new TaskListItem(task);
-                fxFlow.getChildren().add(taskListItem);
-            }
-        }
-        updateProjectButtons();
-        if (projectButtonsContainer.getChildren().size() > 0) {
-            Button firstProjectButton = (Button) projectButtonsContainer.getChildren().get(0);
-            firstProjectButton.fire();
-            firstProjectButton.setFocusTraversable(true);
-        }
         fxUsernameLabel.setText(user.getName()); // use the User object to set the text of the label
-        updateTaskList();
+        dataModel.getTaskList().getTaskList().addListener((ListChangeListener.Change<? extends Task> change) -> {
+            updateTaskList();
+            updateProjectButtons();
+            updateProjectTasks(lastSelectedProject);
+        });
     }
 
     private void updateProjectButtons() {
+        System.out.println("UPDATEPROJECTBUTTON");
         projectButtonsContainer.getChildren().clear();
 
         Set<String> uniqueProjects = new HashSet<>();
-        for (Task task : taskList.getTaskList()) {
+        for (Task task : dataModel.getTaskList().getTaskList()) { // Use dataModel.getTaskList() instead of taskList
             uniqueProjects.add(task.getProject());
         }
 
@@ -124,16 +127,9 @@ public class DashboardController {
             projectButton.setMinHeight(Region.USE_PREF_SIZE);
             projectButtonsContainer.setSpacing(10);
             projectButtonsContainer.getChildren().add(projectButton);
-
-
         }
     }
-    @FXML
-    private void handleProjectButtonClick(ActionEvent event) {
-        Button projectButton = (Button) event.getSource();
-        String projectName = projectButton.getText();
-        updateProjectTasks(projectName);
-    }
+
     @FXML
     private void onLogout(ActionEvent event) {
         setUser(null);
@@ -154,6 +150,10 @@ public class DashboardController {
 
 
     public void createTaskButton(ActionEvent actionEvent) {
+        CreateTaskController.setTaskList(taskList);
+        CreateTaskController.setDataModel(dataModel);
         ViewSwitcher.switchTo(View.CREATETASK);
     }
+
+
 }

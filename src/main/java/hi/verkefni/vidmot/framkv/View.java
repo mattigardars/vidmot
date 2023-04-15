@@ -1,5 +1,7 @@
 package hi.verkefni.vidmot.framkv;
 
+import java.nio.file.Path;
+
 /**
 
  An enumeration representing the different views of the application.

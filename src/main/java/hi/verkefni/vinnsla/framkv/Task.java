@@ -34,5 +34,19 @@ public class Task {
     public int getPriority() {
         return priority;
     }
+
+    public void addDeadline() {
+        this.deadline = deadline.plusDays(2);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
 }
 

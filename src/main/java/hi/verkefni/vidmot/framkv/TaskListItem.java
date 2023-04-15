@@ -1,5 +1,6 @@
 package hi.verkefni.vidmot.framkv;
 
+import hi.verkefni.vinnsla.framkv.DataModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -20,8 +21,11 @@ public class TaskListItem extends HBox {
     private Button editButton;
     private Button deleteButton;
 
-    public TaskListItem(Task task) {
+    private DataModel dataModel;
+
+    public TaskListItem(Task task, DataModel dataModel) {
         super(10);
+        this.dataModel = dataModel;
         this.task = task;
 
         setAlignment(Pos.CENTER_LEFT);
@@ -56,7 +60,6 @@ public class TaskListItem extends HBox {
         deleteImage.setFitWidth(16); // set the width of the image to 16 pixels
         deleteImage.setFitHeight(16); // set the height of the image to 16 pixels
         deleteButton.setGraphic(deleteImage);
-        // deleteButton.setOnAction(event -> deleteTask(task));
         Region spacer = new Region();
         spacer.setPrefWidth(10);
         Region spacer2 = new Region();
@@ -67,11 +70,24 @@ public class TaskListItem extends HBox {
         delayButton.getStyleClass().add("iconButtons");
         editButton.getStyleClass().add("iconButtons");
         deleteButton.getStyleClass().add("iconButtons");
+        delayButton.setOnAction(event -> {
+            dataModel.snoozeTask(task);
+            refresh();
+        });
+        editButton.setOnAction(event -> {
+            // You can open the EditTaskController and pass the task and dataModel to it.
+        });
+        deleteButton.setOnAction(event -> dataModel.deleteTask(task));
+
 
     }
-
 
     public Task getTask() {
         return task;
     }
+
+    public void refresh() {
+        taskLabel.setText(task.getTitle());
+    }
+
 }

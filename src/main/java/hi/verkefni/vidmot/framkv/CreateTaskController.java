@@ -1,5 +1,6 @@
 package hi.verkefni.vidmot.framkv;
 
+import hi.verkefni.vinnsla.framkv.DataModel;
 import hi.verkefni.vinnsla.framkv.Task;
 import hi.verkefni.vinnsla.framkv.TaskList;
 import javafx.collections.FXCollections;
@@ -21,8 +22,21 @@ public class CreateTaskController {
     private TextField fxPriorityField;
     @FXML
     private TextField fxProjectField;
-    private TaskList taskList;
     private Task task;
+
+    private static TaskList taskList; // make the User object static so that it can be accessed from anywhere in the DashboardController class
+
+    public static void setTaskList(TaskList taskList) { // add a method to set the User object
+        CreateTaskController.taskList = taskList;
+    }
+
+
+    private static DataModel dataModel;
+
+    public static void setDataModel(DataModel dataModel) {
+        CreateTaskController.dataModel = dataModel;
+    }
+
 
 
     public CreateTaskController() {
@@ -32,12 +46,6 @@ public class CreateTaskController {
     public CreateTaskController(TaskList taskList) {
         this.taskList = taskList;
     }
-
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
-    }
-
-
 
 
 
@@ -72,7 +80,7 @@ public class CreateTaskController {
 
     @FXML
     void CreateTaskButton(ActionEvent event) {
-
+        System.out.println("KYERI");
         String title = fxCreateTaskField.getText();
         String project = fxProjectField.getText();
         LocalDate deadline = fxDate.getValue();
@@ -100,6 +108,8 @@ public class CreateTaskController {
 
         System.out.println(taskList.getTaskList());
         System.out.println("Title: " + newTask.getTitle() + ", Project: " + newTask.getProject() + ", Deadline: " + newTask.getDeadline() + ", Priority: " + newTask.getPriority());
+        ViewSwitcher.switchTo((View.DASHBOARD));
+        dataModel.getTaskList().addTask(newTask);
 
         ViewSwitcher.switchTo((View.DASHBOARD));
     }
