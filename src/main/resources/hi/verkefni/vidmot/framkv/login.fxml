@@ -16,7 +16,7 @@
         </Text>
         <Pane layoutX="459.0" layoutY="306.0" prefHeight="448.0" prefWidth="482.0" style="-fx-background-color: #FFFF;">
             <children>
-                <Text fill="#001a23" layoutX="190.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innskráning" textAlignment="CENTER" wrappingWidth="102.21630859375">
+                <Text fill="#001a23" layoutX="167.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innskráning" textAlignment="CENTER" wrappingWidth="153.21630859375">
                     <font>
                         <Font size="20.0" />
                     </font>

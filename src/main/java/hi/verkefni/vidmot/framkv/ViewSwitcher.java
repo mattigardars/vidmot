@@ -45,9 +45,6 @@ public class ViewSwitcher {
                 cache.put(view, root);
             }
 
-            root.prefWidth(1440);
-            root.prefHeight(1024);
-
             scene.setRoot(root);
 
         } catch (IOException e) {
