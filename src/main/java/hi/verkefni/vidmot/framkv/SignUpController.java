@@ -8,10 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-/**
- The SignUpController class handles the sign up functionality for the application.
- It contains methods for validating and saving the user's credentials and switching to the dashboard view.
- */
 public class SignUpController {
     @FXML
     private TextField fxUsername;
@@ -24,10 +20,19 @@ public class SignUpController {
     @FXML
     private Button fxLoginButton;
 
-    /**
-     Validates user credentials and switches to the dashboard view.
-     If there is a validation error, an error message is displayed.
-     */
+    public void initialize() {
+        fxLoginButton.setDisable(true);
+        fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+
+        fxPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+        fxPasswordCheck.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+    }
     @FXML
     protected void onLogin() {
         String username = fxUsername.getText();
@@ -48,17 +53,6 @@ public class SignUpController {
         }
     }
 
-    /**
-     Switches to the sign-up view.
-     */
-    @FXML
-    protected void onSignUp() {
-        ViewSwitcher.switchTo(View.SIGNUP);
-    }
-
-    /**
-     Enables the login button if all text fields have valid input.
-     */
     private void updateLoginButton() {
         String username = fxUsername.getText().trim();
         String password = fxPassword.getText().trim();
@@ -71,21 +65,4 @@ public class SignUpController {
         }
     }
 
-    /**
-     Initializes the sign-up view by disabling the login button and adding listeners to the input text fields.
-     The listeners enable or disable the login button based on the validity of the text field inputs.
-     */
-    public void initialize() {
-        fxLoginButton.setDisable(true);
-        fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-
-        fxPassword.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-        fxPasswordCheck.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-    }
 }

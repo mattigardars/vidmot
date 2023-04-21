@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The {@code ViewSwitcher} class is responsible for switching between different views in a JavaFX application.
- * It uses a cache to store loaded views for faster access when switching between views multiple times.
+ The {@code ViewSwitcher} class is responsible for switching between different views in a JavaFX application.
+ It uses a cache to store loaded views for faster access when switching between views multiple times.
  */
 public class ViewSwitcher {
 
