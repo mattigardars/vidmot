@@ -3,10 +3,8 @@ package hi.verkefni.vidmot.framkv;
 import java.nio.file.Path;
 
 /**
-
- An enumeration representing the different views of the application.
-
- Each view is associated with an FXML file name.
+ * An enumeration representing the different views of the application.
+ * Each view is associated with an FXML file name.
  */
 
 public enum View {
