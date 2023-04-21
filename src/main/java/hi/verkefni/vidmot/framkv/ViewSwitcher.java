@@ -18,10 +18,18 @@ public class ViewSwitcher {
 
     private static Scene scene;
 
+    /**
+     Sets the scene to be used for view switching.
+     @param scene the scene to use
+     */
     public static void setScene(Scene scene ) {
         ViewSwitcher.scene = scene;
     }
 
+    /**
+     Switches to the specified view, using a cached view root if available.
+     @param view the view to switch to
+     */
     public static void switchTo(View view) {
         if (scene == null) {
             System.out.println("No scene was set");
@@ -52,6 +60,10 @@ public class ViewSwitcher {
         }
     }
 
+    /**
+     Switches to the specified view, without using a cached view root.
+     @param view the view to switch to
+     */
     public static void switchToNoCache(View view) {
         if (scene == null) {
             System.out.println("No scene was set");

@@ -13,6 +13,12 @@ import hi.verkefni.vinnsla.framkv.Task;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
+
+/**
+ The TaskListItem class represents a custom list item for a task in the task list view.
+ It extends the HBox class to display the task's information in a horizontal layout.
+ It contains a checkbox, label for the task's title, buttons to delay, edit, and delete the task, and a reference to the data model.
+ */
 public class TaskListItem extends HBox {
     private Task task;
     private CheckBox checkBox;
@@ -22,6 +28,11 @@ public class TaskListItem extends HBox {
     private Button deleteButton;
     private DataModel dataModel;
 
+    /**
+     Constructs a TaskListItem object with the given task and data model.
+     @param task The task object to display in the list item.
+     @param dataModel The data model to interact with when the list item is manipulated.
+     */
     public TaskListItem(Task task, DataModel dataModel) {
         super(10);
         this.dataModel = dataModel;
@@ -88,6 +99,11 @@ public class TaskListItem extends HBox {
         });
     }
 
+    /**
+     Refreshes the task list item with updated information from the underlying Task object.
+     Sets the task label text to the title of the task, and sets the selected state of the checkbox
+     to the finished state of the task.
+     */
     public void refresh() {
         taskLabel.setText(task.getTitle());
         checkBox.setSelected(task.isFinished());

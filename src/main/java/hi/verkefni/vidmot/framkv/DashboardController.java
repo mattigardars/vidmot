@@ -18,6 +18,14 @@ import hi.verkefni.vinnsla.framkv.TaskList;
 import hi.verkefni.vinnsla.framkv.DataModel;
 import hi.verkefni.vinnsla.framkv.User;
 
+/**
+ Controller for the dashboard view. This class is responsible for updating the user interface
+ with the appropriate data from the data model.
+ The class uses FXML to define the user interface components and handles user events using
+ event handlers defined in the FXML file.
+ The class also contains methods for updating the task list and project list based on changes to
+ the data model.
+ */
 public class DashboardController {
 
     @FXML
@@ -37,6 +45,11 @@ public class DashboardController {
     private TaskList taskList = new TaskList();
     private String lastSelectedProject;
 
+    /**
+     Initializes the controller after its root element has been completely processed.
+     This method is called after the FXML file has been loaded and all the injected fields
+     have been initialized.
+     */
     public void initialize() {
         today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
@@ -53,6 +66,10 @@ public class DashboardController {
         });
     }
 
+    /**
+     Updates the list of tasks displayed in the project view.
+     @param projectName the name of the project to display tasks for
+     */
     private void updateProjectTasks(String projectName) {
         lastSelectedProject = projectName;
         fxProject.getChildren().clear();
@@ -70,6 +87,9 @@ public class DashboardController {
         }
     }
 
+    /**
+     Updates the list of tasks displayed in the task list view.
+     */
     private void updateTaskList() {
         System.out.println("UpdatetaskList");
         fxFlow.getChildren().clear();
@@ -87,6 +107,9 @@ public class DashboardController {
         }
     }
 
+    /**
+     Updates the list of project buttons based on the projects in the task list.
+     */
     private void updateProjectButtons() {
         System.out.println("UPDATEPROJECTBUTTON");
         projectButtonsContainer.getChildren().clear();
@@ -126,15 +149,28 @@ public class DashboardController {
             projectIndex++;
         }
     }
-
+    /**
+     * Sets the DataModel instance for this DashboardController.
+     *
+     * @param dataModel the User instance to set
+     */
     public static void setDataModel(DataModel dataModel) {
         DashboardController.dataModel = dataModel;
     }
 
+    /**
+     * Sets the User instance for this DashboardController.
+     *
+     * @param user the User instance to set
+     */
     public static void setUser(User user) { // add a method to set the User object
         DashboardController.user = user;
     }
 
+    /**
+     Selects the first project button in the project buttons container and fires its action event to update the tasks displayed in the project view.
+     If the container is empty, no action is taken.
+     */
     private void selectFirstProject() {
         if (!projectButtonsContainer.getChildren().isEmpty()) {
             Button firstProjectButton = (Button) projectButtonsContainer.getChildren().get(0);
@@ -142,12 +178,21 @@ public class DashboardController {
         }
     }
 
+    /**
+     Sets the static User object to null and switches the view to the login view when the user clicks the logout button.
+     @param event the ActionEvent that triggered this method
+     */
     @FXML
     private void onLogout(ActionEvent event) {
         setUser(null);
         ViewSwitcher.switchTo(View.LOGIN);
     }
 
+    /**
+     Sets the TaskList and DataModel objects in the CreateTaskController and switches the view to the create task view
+     when the user clicks the "Create Task" button.
+     @param actionEvent the ActionEvent that triggered this method
+     */
     public void createTaskButton(ActionEvent actionEvent) {
         CreateTaskController.setTaskList(taskList);
         CreateTaskController.setDataModel(dataModel);

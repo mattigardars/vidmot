@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
 
+/**
+ This class is responsible for controlling the Edit Task view, which allows the user to edit the details of a task.
+ */
 public class EditTaskController {
     private static DataModel dataModel;
 
@@ -20,6 +23,10 @@ public class EditTaskController {
     @FXML private TextField fxPriorityField;
     @FXML private Button fxEditTask;
 
+    /**
+     Initializes the view with the details of the selected task, if there is one.
+     Updates the create task button status based on the values entered in the fields.
+     */
     @FXML
     public void initialize() {
         Task task = dataModel.getSelectedTask();
@@ -46,6 +53,10 @@ public class EditTaskController {
         });
     }
 
+    /**
+     Updates the selected task with the values entered in the fields, if they are valid.
+     Clears the fields and switches the view back to the Dashboard view.
+     */
     @FXML
     public void editTask() {
         if (dataModel != null && dataModel.getSelectedTask() != null) {
@@ -60,7 +71,10 @@ public class EditTaskController {
             ViewSwitcher.switchTo(View.DASHBOARD);
         }
     }
-
+    /**
+     Updates the status of the create task button based on the values entered in the fields.
+     The button is enabled only if all fields have values and the priority is between 1 and 5.
+     */
     private void updateCreateTaskButton() {
         boolean hasValidValues = !fxCreateTaskField.getText().isEmpty() && fxDate.getValue() != null && !fxProjectField.getText().isEmpty() && !fxPriorityField.getText().isEmpty();
         if(hasValidValues){
@@ -70,10 +84,17 @@ public class EditTaskController {
         fxEditTask.setDisable(!hasValidValues);
     }
 
+    /**
+     Sets the DataModel instance used by this controller.
+     @param dataModel the DataModel instance to be used by this controller.
+     */
     public static void setDataModel(DataModel dataModel) {
         EditTaskController.dataModel = dataModel;
     }
 
+    /**
+     Clears the fields of the Edit Task view.
+     */
     private void clearFields() {
         fxCreateTaskField.clear();
         fxPriorityField.clear();
@@ -82,6 +103,10 @@ public class EditTaskController {
         fxProjectField.clear();
     }
 
+    /**
+     Switches the view back to the Dashboard view.
+     @param event the event that triggered the method.
+     */
     @FXML
     void backToDasboardButton(ActionEvent event) {
         ViewSwitcher.switchTo(View.DASHBOARD);

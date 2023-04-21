@@ -9,6 +9,11 @@ import javafx.scene.control.*;
 
 import java.time.LocalDate;
 
+/**
+ This class is the controller for the create task view, which allows the user to create a new task.
+ It contains methods to initialize the view and handle user interactions with the view.
+ The class has access to the task list and data model, which it uses to add new tasks to the system.
+ */
 public class CreateTaskController {
     @FXML
     private TextField fxCreateTaskField;
@@ -24,6 +29,10 @@ public class CreateTaskController {
     private static TaskList taskList;
     private static DataModel dataModel;
 
+    /**
+     Initializes the create task view and sets up listeners on the input fields.
+     Disables the create task button until all fields have valid input.
+     */
     public void initialize() {
         taskList = new TaskList();
         CreateTaskButton.setDisable(true);
@@ -44,14 +53,26 @@ public class CreateTaskController {
             updateCreateTaskButton();
         });
     }
+
+    /**
+     Sets the task list for this controller.
+     @param taskList the task list to be set
+     */
     public static void setTaskList(TaskList taskList) { // add a method to set the User object
         CreateTaskController.taskList = taskList;
     }
 
+    /**
+     Sets the data model for this controller.
+     @param dataModel the data model to be set
+     */
     public static void setDataModel(DataModel dataModel) {
         CreateTaskController.dataModel = dataModel;
     }
 
+    /**
+     Enables or disables the create task button based on the validity of the input fields.
+     */
     private void updateCreateTaskButton() {
         boolean hasValidValues = !fxCreateTaskField.getText().isEmpty() && fxDate.getValue() != null && !fxProjectField.getText().isEmpty() && !fxPriorityField.getText().isEmpty();
         if(hasValidValues){
@@ -62,6 +83,11 @@ public class CreateTaskController {
     }
 
 
+    /**
+     Creates a new task with the input values and adds it to the task list and data model.
+     Clears the input fields and disables the create task button.
+     @param event the event that triggered this method
+     */
     @FXML
     void CreateTaskButton(ActionEvent event) {
         String title = fxCreateTaskField.getText();
@@ -85,7 +111,10 @@ public class CreateTaskController {
         ViewSwitcher.switchTo((View.DASHBOARD));
     }
 
-
+    /**
+     Switches the view back to the dashboard.
+     @param event the event that triggered this method
+     */
     @FXML
     void backToDasboardButton(ActionEvent event) {
         ViewSwitcher.switchTo(View.DASHBOARD);

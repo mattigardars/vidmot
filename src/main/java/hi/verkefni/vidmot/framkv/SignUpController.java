@@ -4,10 +4,13 @@ import hi.verkefni.vinnsla.framkv.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ The SignUpController class is the controller for the Sign Up view of the application.
+ It handles user input for creating a new account.
+ */
 public class SignUpController {
     @FXML
     private TextField fxUsername;
@@ -20,6 +23,10 @@ public class SignUpController {
     @FXML
     private Button fxLoginButton;
 
+
+    /**
+     Initializes the controller. Disables the login button until all required fields have input.
+     */
     public void initialize() {
         fxLoginButton.setDisable(true);
         fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -33,6 +40,12 @@ public class SignUpController {
             updateLoginButton();
         });
     }
+
+    /**
+     Handles the action when the login button is pressed.
+     Validates user input and saves the new user to the system.
+     Switches to the dashboard view if successful.
+     */
     @FXML
     protected void onLogin() {
         String username = fxUsername.getText();
@@ -53,6 +66,9 @@ public class SignUpController {
         }
     }
 
+    /**
+     Updates the login button based on the user input.
+     */
     private void updateLoginButton() {
         String username = fxUsername.getText().trim();
         String password = fxPassword.getText().trim();
