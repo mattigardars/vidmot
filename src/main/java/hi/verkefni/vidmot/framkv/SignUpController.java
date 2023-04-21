@@ -19,6 +19,20 @@ public class SignUpController {
     private PasswordField fxPasswordCheck;
     @FXML
     private Button fxLoginButton;
+
+    public void initialize() {
+        fxLoginButton.setDisable(true);
+        fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+
+        fxPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+        fxPasswordCheck.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+    }
     @FXML
     protected void onLogin() {
         String username = fxUsername.getText();
@@ -39,11 +53,6 @@ public class SignUpController {
         }
     }
 
-    @FXML
-    protected void onSignUp() {
-        ViewSwitcher.switchTo(View.SIGNUP);
-    }
-
     private void updateLoginButton() {
         String username = fxUsername.getText().trim();
         String password = fxPassword.getText().trim();
@@ -56,17 +65,4 @@ public class SignUpController {
         }
     }
 
-    public void initialize() {
-        fxLoginButton.setDisable(true);
-        fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-
-        fxPassword.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-        fxPasswordCheck.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-    }
 }

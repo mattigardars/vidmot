@@ -18,6 +18,16 @@ public class LoginController {
     @FXML
     private Button fxLoginButton;
 
+    public void initialize() {
+        fxLoginButton.setDisable(true);
+        fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+
+        fxPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateLoginButton();
+        });
+    }
     @FXML
     protected void onLogin() {
         String username = fxUsername.getText();
@@ -29,6 +39,7 @@ public class LoginController {
             User user = new User(username, true);
             DashboardController.setUser(user); // set the User object in the DashboardController
             fxPassword.clear();
+            fxUsername.clear();
             // switch to dashboard view
             ViewSwitcher.switchTo(View.DASHBOARD);
         } else {
@@ -52,14 +63,4 @@ public class LoginController {
         }
     }
 
-    public void initialize() {
-        fxLoginButton.setDisable(true);
-        fxUsername.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-
-        fxPassword.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateLoginButton();
-        });
-    }
 }

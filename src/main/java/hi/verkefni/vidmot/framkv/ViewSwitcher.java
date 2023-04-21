@@ -52,7 +52,22 @@ public class ViewSwitcher {
         }
     }
 
+    public static void switchToNoCache(View view) {
+        if (scene == null) {
+            System.out.println("No scene was set");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(ViewSwitcher.class.getResource(view.getFileName()));
 
 
+            Parent root = loader.load();
+            scene.setRoot(root);
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to load view: " + view, ex);
+        }
+    }
 }
+
 

@@ -20,7 +20,6 @@ public class TaskListItem extends HBox {
     private Button delayButton;
     private Button editButton;
     private Button deleteButton;
-
     private DataModel dataModel;
 
     public TaskListItem(Task task, DataModel dataModel) {
@@ -31,7 +30,7 @@ public class TaskListItem extends HBox {
         setAlignment(Pos.CENTER_LEFT);
 
         checkBox = new CheckBox();
-        checkBox.setSelected(false);
+        checkBox.setSelected(task.isFinished());
         checkBox.getStyleClass().add("checkbox");
 
         taskLabel = new Label(task.getTitle());
@@ -46,60 +45,52 @@ public class TaskListItem extends HBox {
         delayImage.setFitHeight(16); // set the height of the image to 16 pixels
         delayButton.setGraphic(delayImage);
 
-        // snoozeButton.setOnAction(event -> snoozeTask(task));
-
         editButton = new Button();
         ImageView editImage = new ImageView(new Image(getClass().getResourceAsStream("/hi.verkefni.assets/edit.png")));
         editImage.setFitWidth(16); // set the width of the image to 16 pixels
         editImage.setFitHeight(16); // set the height of the image to 16 pixels
         editButton.setGraphic(editImage);
-        //editButton.setOnAction(event -> {
 
         deleteButton = new Button();
         ImageView deleteImage = new ImageView(new Image(getClass().getResourceAsStream("/hi.verkefni.assets/delete.png")));
         deleteImage.setFitWidth(16); // set the width of the image to 16 pixels
         deleteImage.setFitHeight(16); // set the height of the image to 16 pixels
         deleteButton.setGraphic(deleteImage);
+
         Region spacer = new Region();
         spacer.setPrefWidth(10);
         Region spacer2 = new Region();
         spacer2.setPrefWidth(40);
         Region spacer3 = new Region();
         spacer3.setPrefWidth(40);
+
         getChildren().addAll(checkBox, spacer ,taskLabel, spacer2, delayButton, editButton, deleteButton, spacer3);
         delayButton.getStyleClass().add("iconButtons");
         editButton.getStyleClass().add("iconButtons");
         deleteButton.getStyleClass().add("iconButtons");
+
         delayButton.setOnAction(event -> {
             dataModel.snoozeTask(task);
             refresh();
         });
+
         editButton.setOnAction(event -> {
-            System.out.println("here");
+            System.out.println("Edit task is: " + dataModel.getSelectedTask());
             dataModel.setSelectedTask(task);
-            ViewSwitcher.switchTo(View.EDITTASK);
+            System.out.println("Edit task is: " + dataModel.getSelectedTask());
+            ViewSwitcher.switchToNoCache(View.EDITTASK);
         });
         deleteButton.setOnAction(event -> dataModel.deleteTask(task));
 
-
-    }
-
-    public Task getTask() {
-        return task;
-    }
-    public void updateTask(Task task) {
-        this.task = task;
-        taskLabel.setText(task.getTitle());
+        checkBox.setOnAction(event -> { // add an event handler to update the task when the checkbox is checked or unchecked
+            task.setFinished(checkBox.isSelected());
+            dataModel.updateTask(task, task);
+        });
     }
 
     public void refresh() {
         taskLabel.setText(task.getTitle());
-    }
-
-    private EditTaskController editTaskController;
-
-    public void setEditTaskController(EditTaskController editTaskController) {
-        this.editTaskController = editTaskController;
+        checkBox.setSelected(task.isFinished());
     }
 
 }

@@ -3,8 +3,6 @@ package hi.verkefni.vidmot.framkv;
 import hi.verkefni.vinnsla.framkv.DataModel;
 import hi.verkefni.vinnsla.framkv.Task;
 import hi.verkefni.vinnsla.framkv.TaskList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,36 +20,13 @@ public class CreateTaskController {
     private TextField fxPriorityField;
     @FXML
     private TextField fxProjectField;
-    private Task task;
 
-    private static TaskList taskList; // make the User object static so that it can be accessed from anywhere in the DashboardController class
-
-    public static void setTaskList(TaskList taskList) { // add a method to set the User object
-        CreateTaskController.taskList = taskList;
-    }
-
-
+    private static TaskList taskList;
     private static DataModel dataModel;
-
-    public static void setDataModel(DataModel dataModel) {
-        CreateTaskController.dataModel = dataModel;
-    }
-
-
-
-    public CreateTaskController() {
-        // This is the no-argument constructor required by JavaFX
-    }
-
-    public CreateTaskController(TaskList taskList) {
-        this.taskList = taskList;
-    }
-
-
 
     public void initialize() {
         taskList = new TaskList();
-        CreateTaskButton.setDisable(true); // disable the button by default
+        CreateTaskButton.setDisable(true);
 
         fxCreateTaskField.textProperty().addListener((observable, oldValue, newValue) -> {
             updateCreateTaskButton();
@@ -69,44 +44,42 @@ public class CreateTaskController {
             updateCreateTaskButton();
         });
     }
+    public static void setTaskList(TaskList taskList) { // add a method to set the User object
+        CreateTaskController.taskList = taskList;
+    }
+
+    public static void setDataModel(DataModel dataModel) {
+        CreateTaskController.dataModel = dataModel;
+    }
 
     private void updateCreateTaskButton() {
-        // check if both the textfield and datepicker have valid values
         boolean hasValidValues = !fxCreateTaskField.getText().isEmpty() && fxDate.getValue() != null && !fxProjectField.getText().isEmpty() && !fxPriorityField.getText().isEmpty();
-
-        // enable/disable the button accordingly
+        if(hasValidValues){
+            int priority = Integer.parseInt(fxPriorityField.getText());
+            hasValidValues = (priority >= 1 && priority <= 5);
+        }
         CreateTaskButton.setDisable(!hasValidValues);
     }
 
+
     @FXML
     void CreateTaskButton(ActionEvent event) {
-        System.out.println("KYERI");
         String title = fxCreateTaskField.getText();
         String project = fxProjectField.getText();
         LocalDate deadline = fxDate.getValue();
         int priority = Integer.parseInt(fxPriorityField.getText());
 
-        // create a new task with the given name and date
-        Task newTask = new Task(title,project, deadline, priority);
+        Task newTask = new Task(title,project, deadline, priority, false);
 
-        // add the new task to the task list
         taskList.addTask(newTask);
 
-
-        // clear the input fields
         fxCreateTaskField.clear();
         fxDate.setValue(null);
         fxPriorityField.clear();
         fxProjectField.clear();
 
-        // disable the button again
         CreateTaskButton.setDisable(true);
-        // create a new label for the task and set its text
-        //Label taskLabel = new Label("Title: " + newTask.getTitle() + ", Project: " + newTask.getProject() + ", Deadline: " + newTask.getDeadline() + ", Priority: " + newTask.getPriority());
 
-        System.out.println(taskList.getTaskList());
-        System.out.println("Title: " + newTask.getTitle() + ", Project: " + newTask.getProject() + ", Deadline: " + newTask.getDeadline() + ", Priority: " + newTask.getPriority());
-        ViewSwitcher.switchTo((View.DASHBOARD));
         dataModel.getTaskList().addTask(newTask);
 
         ViewSwitcher.switchTo((View.DASHBOARD));

@@ -26,10 +26,8 @@ public class FramkvApplication extends Application {
 
         stage.setScene(scene);
 
-        // Get the primary screen bounds
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-        // Set the stage dimensions to match the screen dimensions
         stage.setX(screenBounds.getMinX());
         stage.setY(screenBounds.getMinY());
         stage.setWidth(screenBounds.getWidth());

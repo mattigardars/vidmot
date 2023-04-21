@@ -24,13 +24,6 @@ public class DataModel {
         taskList.updateTask(task); // Add this line to update the task in the TaskList
     }
 
-    public void editTask(Task task) {
-        int index = taskList.getTaskList().indexOf(task);
-        if (index >= 0) {
-            taskList.getTaskList().set(index, task);
-        }
-    }
-
     public Task getSelectedTask() {
         return selectedTask;
     }
@@ -45,6 +38,10 @@ public class DataModel {
             taskList.getTaskList().set(index, updatedTask);
             // Notify observers of the change
         }
+    }
+
+    public boolean getFinished () {
+        return selectedTask.isFinished();
     }
 
 }
