@@ -17,6 +17,7 @@ public class Task {
         this.project = project;
         this.deadline = deadline;
         this.priority = priority;
+        
         this.finished = finished;
     }
     public boolean isFinished() {
